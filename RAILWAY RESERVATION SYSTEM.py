@@ -1,7 +1,6 @@
 import mysql.connector
 import numpy as np
 import time
-k=[]
 
 conn=mysql.connector.connect(host="localhost",user="root",password="1234")
 cursor=conn.cursor()
@@ -16,6 +15,10 @@ cursor.execute(s1)
 
 s="create table if not exists rail_accounts(Name varchar(100),UserNAME varchar(100),Password varchar(100),Phone_Number varchar(15),gender varchar(50),dob varchar(50),age varchar(4))"
 cursor.execute(s)
+
+query = "SELECT username FROM rail_accounts"
+cursor.execute(query)
+k = [row[0] for row in cursor.fetchall()]
 
 def ticket_booking():
     time.sleep(0.3)
@@ -127,7 +130,7 @@ def sign_up():
     if username.lower() not in k:
         k.append(username.lower())
     else:
-        print("USERNAME ALREADY TAKEN BY OTHERS:")
+        print("USERNAME ALREADY TAKEN BY OTHERS:CHOOSE ANOTHER USERNAME :)")
         kmain()
     password=input("Enter Password:")
     re_enter=input("ReEnter Password:")
